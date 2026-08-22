@@ -1,0 +1,13 @@
+.env
+.env.*
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+.DS_Store
+
+# Never commit authenticated browser/payment data
+execution/sessions/
+browser-profile/
+runs/*/screenshots/
