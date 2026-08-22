@@ -1,96 +1,133 @@
-# Oracle Team - Pizza Agent Plan
+# Oracle Team Pizza Order Execution Plan
 
-## Overview
-This plan describes the Oracle team's approach to ordering one pepperoni + jalapeño pizza for delivery within the $35 budget constraint, with the primary goal of fastest delivery.
+## 1. Overall Strategy and Approach
 
-## Challenge Analysis
-- **Primary Objective**: Order 1 pizza with pepperoni and jalapeño toppings for delivery
-- **Budget Constraint**: Maximum delivered total of $35 (including tax, fees, tips)
-- **Quantity**: Exactly 1 pizza
-- **Success Criteria**: Pizza ordered, confirmed for delivery, meets all constraints
+Adopt a **time-bounded, verification-first** methodology. Prioritize speed of delivery while maintaining strict adherence to constraints through parallelizable verification steps. The approach is divided into three phases: discovery (identify viable options), validation (confirm requirements), and execution (complete order with monitoring). Each phase has explicit success criteria and fallback triggers.
 
-## Strategic Approach
+**Core Principles:**
+- **Minimize decision latency** by filtering options against hard constraints early
+- **Verify before commit** to avoid rework from failed validations
+- **Parallelize independent checks** (price, toppings, availability)
+- **Favor transparency** in all interactions to enable rapid debugging
 
-### Phase 1: Discovery
-The agent will systematically search for available pizza delivery options by:
-1. Identifying popular food delivery platforms and direct restaurant websites
-2. Searching for "pepperoni jalapeño pizza delivery" in the user's location
-3. Prioritizing vendors based on estimated delivery time
+## 2. Finding Suitable Pizza Options
 
-### Phase 2: Evaluation
-For each candidate option, the agent will:
-1. Verify the pizza can be customized with both pepperoni and jalapeño toppings
-2. Check the base price + topping costs + delivery fee + tax estimate
-3. Ensure the total remains under $35
-4. Assess estimated delivery time
-5. Verify the vendor is legitimate and operational
+### Discovery Methodology
+- **Constraint-first filtering**: Immediately eliminate options that cannot meet the $35 maximum budget or do not offer both required toppings
+- **Delivery time estimation**: Prioritize vendors advertising the shortest estimated delivery windows, but validate these claims against real-time availability
+- **Geographic proximity**: Prefer options within a 3-mile radius to minimize delivery variance
+- **Operating status**: Confirm vendor is currently open and accepting delivery orders
 
-### Phase 3: Selection
-The agent will select the option that:
-1. Meets all requirements (toppings, quantity, budget)
-2. Has the fastest estimated delivery time
-3. Has the highest reliability based on available information
+### Information Sources
+- Aggregate delivery platforms for breadth of options
+- Direct vendor sites for most accurate menu/pricing data
+- Real-time availability APIs where accessible
+- Historical delivery time data if available in the environment
 
-### Phase 4: Ordering
-The agent will:
-1. Navigate to the selected vendor's ordering interface
-2. Configure the pizza: 1 pizza, add pepperoni, add jalapeño
-3. Verify the total cost is ≤ $35
-4. Provide necessary delivery information (address, payment)
-5. Confirm the order without placing duplicate orders
+## 3. Requirement Verification Protocol
 
-### Phase 5: Verification
-The agent will:
-1. Capture order confirmation details
-2. Verify the order includes pepperoni and jalapeño
-3. Confirm the total is within budget
-4. Note the estimated delivery time
+### Topping Validation
+- **Explicit confirmation**: Verify "pepperoni" and "jalapeño" appear in the selected pizza's topping list
+- **Customization check**: If building a custom pizza, confirm both toppings can be added without exceeding budget
+- **Substitution risk**: Explicitly reject any "similar" or substitute toppings (e.g., "spicy pepper" ≠ jalapeño)
 
-## Risk Assessment and Mitigation
+### Budget Compliance
+- **Base price check**: Confirm the pizza's listed price ≤ $35 before any modifications
+- **Dynamic pricing validation**: Account for delivery fees, taxes, and service charges in final total
+- **Threshold buffer**: Maintain $0.50 buffer below $35 to account for rounding discrepancies
+- **Verification formula**: `base_price + delivery_fee + tax + tips(service_fee) ≤ 34.50`
 
-### Risk: No options under $35
-**Mitigation**: Search multiple vendors, consider smaller pizza sizes, look for first-time customer discounts.
+### Quantity Verification
+- **Explicit count**: Confirm exactly 1 pizza in cart before checkout
+- **Accidental duplication**: Check that "add to cart" actions do not trigger multiple additions
+- **Cart inspection**: Visually verify quantity field shows "1" at every stage
 
-### Risk: Toppings not available
-**Mitigation**: Verify topping availability before selection. If pepperoni or jalapeño unavailable, search for alternative vendors.
+## 4. Ordering Process Handling
 
-### Risk: Delivery time estimates unreliable
-**Mitigation**: Cross-reference with multiple sources if possible. Prefer vendors with trackable delivery.
+### Pre-Order Checklist
+- [ ] Pizza selected with both toppings confirmed
+- [ ] Final price including all fees ≤ $34.50
+- [ ] Delivery address verified correct
+- [ ] Estimated delivery time captured for baseline
+- [ ] Payment method validated and ready
 
-### Risk: CAPTCHA or authentication blocks
-**Mitigation**: The execution layer will handle these within security constraints. The agent will not attempt to bypass them.
+### Execution Steps
+1. **Cart freeze**: Screenshot cart state immediately before checkout as evidence of compliance
+2. ** Checkout validation**: Re-verify all requirements during checkout flow (prices can change)
+3. **Confirmation capture**: Save order confirmation number, estimated delivery time, and final price
+4. **Real-time monitoring**: Track order status updates for any delays or issues
 
-### Risk: Payment issues
-**Mitigation**: Ensure payment information is complete and valid before submission. Verify order confirmation.
+### Automation Safeguards
+- If using automated tools, implement pre-submission validation script that checks:
+  - Cart contents match requirements
+  - Total ≤ budget
+  - Delivery address is correct
+  - All form fields properly populated
 
-## Execution Layer Assumptions
+## 5. Successful Delivery Confirmation
 
-The agent assumes the following browser/execution capabilities will be available:
-- `navigate(url)`: Navigate to a URL
-- `visible_page_text()`: Get all visible text on the page
-- `click(target)`: Click on an element
-- `type_into(target, value)`: Type text into a field
-- `screenshot()`: Capture a screenshot for debugging
-- `current_url()`: Get the current page URL
-- `cart_state()`: Get current cart/state information
+### Verification Criteria
+- **Order status**: Track from "Preparing" → "Out for Delivery" → "Delivered"
+- **Physical verification**: Confirm receipt of exactly 1 pizza with correct toppings
+- **Condition check**: Pizza arrives hot and with toppings as ordered
+- **Timeline validation**: Compare actual delivery time against initial estimate
 
-The agent will use these tools to interact with web interfaces without making assumptions about specific implementations.
+### Documentation Requirements
+- Screenshot of final delivered order status
+- Photographic evidence of received pizza (if possible)
+- Timestamp of delivery completion
+- Any discrepancy notes for post-mortem analysis
 
-## Decision Principles
+## 6. Risk Assessment and Mitigation
 
-1. **Evidence First**: Only act on verified information from the page
-2. **Constraint Compliance**: Never violate the $35 budget or one-order limit
-3. **Speed vs. Reliability**: Choose the fastest option that reliably meets all requirements
-4. **Minimal Assumptions**: Don't assume vendor-specific behavior; verify through the interface
-5. **Single Order Guarantee**: Implement checks to prevent duplicate orders
+### High-Probability Risks
+| Risk | Impact | Mitigation Strategy | Fallback |
+|------|--------|---------------------|----------|
+| Price changes between selection and checkout | Budget violation | Re-validate total at every navigation step | Abort and select alternative |
+| Topping sold out after selection | Order failure | Check real-time availability before finalizing | Choose next-closest vendor |
+| Delivery time exceeds initial estimate | Late delivery | Monitor status; contact vendor at +50% over estimate | Cancel and reorder if early enough |
+| Address entry error | Wrong delivery location | Double-check address at checkout; use saved address if available | Contact vendor immediately |
+| Payment decline | Order failure | Verify payment method before starting | Use alternative payment |
 
-## Fallback Strategy
+### Low-Probability, High-Impact Risks
+- **Vendor system outage**: Have 2-3 pre-validated backup options ready
+- **Network connectivity issues**: Use mobile hotspot as backup; save critical data locally
+- **Wrong item delivered**: Photograph immediately, contact vendor with order number
 
-If the primary vendor fails (out of stock, too expensive, etc.):
-1. Move to the next best option from Phase 2
-2. Re-evaluate all options if necessary
-3. If no options work, report failure with details
+### Mitigation Priorities
+1. Prevent budget violations (hard constraint)
+2. Prevent topping errors (hard constraint)
+3. Minimize delivery time (optimization target)
+4. Ensure order completion (success criterion)
 
-## Outputs
+## 7. Execution Environment Assumptions
 
-The Developer will use this plan to create an agent specification that encodes these principles and strategies into executable instructions.
+### Tool Capabilities
+- `navigate(url)`: Can access any public vendor or aggregator URL
+- `visible_page_text()`: Returns complete, accurate page content including dynamic elements
+- `click(target)`: Precise targeting; no accidental double-clicks
+- `type_into(target, value)`: Accurate data entry; handles special characters
+- `screenshot()`: Captures full viewport; usable for verification
+- `current_url()`: Returns complete, current URL for state tracking
+- `cart_state()`: Returns structured cart data including items, prices, fees
+
+### Environmental Constraints
+- Execution occurs in a standard browser environment with cookies/sessions persisted
+- JavaScript is enabled; dynamic content loads normally
+- No ad-blockers or extensions interfere with page functionality
+- Network latency is typical for the geographic region
+- Time synchronization is accurate for timestamp verification
+
+### Data Availability
+- Vendor sites provide real-time pricing and availability
+- Delivery estimates are reasonably accurate (±15 minutes)
+- Order status updates are pushed or pollable in real-time
+- Confirmation emails/SMS are deliverable within 2 minutes of order
+
+### Timing Assumptions
+- Minimum viable delivery time in area: 20 minutes
+- Average pizza preparation time: 10-15 minutes
+- Page load times: <3 seconds per navigation
+- Form submission times: <5 seconds
+
+**Success Metric**: Delivery confirmed within 45 minutes of starting the search, with all constraints satisfied.

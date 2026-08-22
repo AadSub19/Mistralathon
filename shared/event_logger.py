@@ -112,3 +112,39 @@ def log_error(team: str, phase: str, actor: str, error: str, run_dir: str = "run
     """Log an error during any phase."""
     log_event(team, phase, actor, "error",
               f"Error: {error}", run_dir)
+
+
+def log_vibe_started(team: str, phase: str, actor: str, workdir: str, run_dir: str = "runs"):
+    """Log when a Vibe CLI process starts."""
+    log_event(team, phase, actor, "vibe_started",
+              f"Vibe CLI process started in {workdir}", run_dir)
+
+
+def log_vibe_completed(team: str, phase: str, actor: str, workdir: str, exit_code: int, run_dir: str = "runs"):
+    """Log when a Vibe CLI process completes."""
+    log_event(team, phase, actor, "vibe_completed",
+              f"Vibe CLI process completed in {workdir} with exit code {exit_code}", run_dir)
+
+
+def log_file_created(team: str, phase: str, actor: str, filepath: str, run_dir: str = "runs"):
+    """Log when a file is created by a Vibe session."""
+    log_event(team, phase, actor, "file_created",
+              f"File created: {filepath}", run_dir)
+
+
+def log_test_run(team: str, phase: str, actor: str, test_name: str, result: str, run_dir: str = "runs"):
+    """Log when a test is run."""
+    log_event(team, phase, actor, "test_run",
+              f"Test '{test_name}' result: {result}", run_dir)
+
+
+def log_stage_started(team: str, phase: str, run_dir: str = "runs"):
+    """Log when a stage (architect/developer/qa) starts."""
+    log_event(team, phase, phase, "stage_started",
+              f"Stage {phase} started", run_dir)
+
+
+def log_stage_completed(team: str, phase: str, run_dir: str = "runs"):
+    """Log when a stage (architect/developer/qa) completes."""
+    log_event(team, phase, phase, "stage_completed",
+              f"Stage {phase} completed", run_dir)
