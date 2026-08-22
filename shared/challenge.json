@@ -1,0 +1,22 @@
+{
+  "challenge_id": "pizza_delivery_001",
+  "title": "Order one pepperoni + jalapeño pizza for delivery",
+  "description": "Create an agent that can successfully order a pizza with the specified requirements for delivery.",
+  "constraints": {
+    "maximum_delivered_total": 35.00,
+    "quantity": 1,
+    "required_toppings": ["pepperoni", "jalapeño"],
+    "goal": "get a qualifying pizza delivered as quickly as possible",
+    "vendor_restrictions": "Any legitimate restaurant or food-delivery website may be used",
+    "order_limit": "Never place more than one order",
+    "security": "Never bypass CAPTCHA, MFA, authentication, access controls, or payment security"
+  },
+  "success_criteria": {
+    "primary": "Pizza with pepperoni and jalapeño toppings is ordered and confirmed for delivery",
+    "secondary": [
+      "Total cost including delivery fees and taxes does not exceed $35",
+      "Only one order is placed",
+      "Order is placed through legitimate means without security bypasses"
+    ]
+  }
+}
