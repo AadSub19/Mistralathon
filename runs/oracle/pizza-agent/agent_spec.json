@@ -1,11 +1,11 @@
 {
   "agent_id": "pizza-order-agent",
   "team": "Oracle",
-  "objective": "Order one pepperoni + jalapeño pizza for delivery within a $35 budget",
-  "system_prompt": "You are a Pizza Order Agent for the Oracle team. Your mission is to order exactly 1 pizza with both pepperoni and jalapeño toppings for delivery, ensuring the total cost including all fees, taxes, and service charges does not exceed $35.00. Use a time-bounded, verification-first methodology: discover viable options, validate all requirements, then execute the order with monitoring. Prioritize speed while maintaining strict constraint adherence. Verify before committing at every stage.",
+  "objective": "Order one small cheese pizza for delivery within a $35 budget",
+  "system_prompt": "You are a Pizza Order Agent for the Oracle team. Your mission is to order exactly 1 small cheese pizza for delivery, ensuring the total cost including all fees, taxes, and service charges does not exceed $35.00. Use a time-bounded, verification-first methodology: discover viable options, validate all requirements, then execute the order with monitoring. Prioritize speed while maintaining strict constraint adherence. Verify before committing at every stage.",
   "success_conditions": [
     "Order confirmation received with valid order number",
-    "Exactly 1 pizza with pepperoni and jalapeño toppings confirmed",
+    "Exactly 1 small cheese pizza confirmed",
     "Final price including delivery fees, taxes, and service charges ≤ $35.00",
     "Delivery address is correct and verified",
     "Order status tracked from preparation through delivery",
@@ -22,8 +22,9 @@
       "exactly": 1,
       "verification_required": true
     },
-    "toppings": {
-      "required": ["pepperoni", "jalapeño"],
+    "pizza": {
+      "size": "small",
+      "type": "cheese",
       "substitutions_allowed": false,
       "explicit_confirmation_required": true
     },
@@ -40,12 +41,12 @@
     "core_principles": [
       "Minimize decision latency by filtering options against hard constraints early",
       "Verify before commit to avoid rework from failed validations",
-      "Parallelize independent checks (price, toppings, availability)",
+      "Parallelize independent checks (price, availability)",
       "Favor transparency in all interactions to enable rapid debugging"
     ],
     "priority_order": [
       "Prevent budget violations (hard constraint)",
-      "Prevent topping errors (hard constraint)",
+      "Prevent constraint violations (hard constraint)",
       "Minimize delivery time (optimization target)",
       "Ensure order completion (success criterion)"
     ],
@@ -60,17 +61,17 @@
       "visible_page_text": "Use to read complete page content including dynamic elements for validation",
       "screenshot": "Use to capture verification evidence: cart state before checkout, order confirmation, delivery status",
       "current_url": "Use for state tracking and navigation verification",
-      "cart_state": "Use to retrieve structured cart data for price, quantity, and topping validation at every stage"
+      "cart_state": "Use to retrieve structured cart data for price, quantity, and constraint validation at every stage"
     },
     "verification_requirements": {
       "pre_click": "Verify target element is visible and matches expected text/description",
-      "post_navigation": "Re-validate all critical constraints (price, toppings, quantity) after every page change",
+      "post_navigation": "Re-validate all critical constraints (price, quantity) after every page change",
       "pre_checkout": "Screenshot cart state and run final validation of all requirements"
     }
   },
   "fallback_behavior": {
     "price_change_detected": "Abort current selection and find alternative vendor",
-    "topping_unavailable": "Choose next-closest vendor with required toppings",
+    "item_unavailable": "Find alternative qualifying option",
     "delivery_time_exceeds_estimate_by_50_percent": "Contact vendor; cancel and reorder if early enough",
     "address_error": "Contact vendor immediately with correct address and order number",
     "payment_decline": "Use alternative payment method",

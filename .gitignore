@@ -8,6 +8,7 @@ node_modules/
 .DS_Store
 
 # Never commit authenticated browser/payment data
+execution/.browser_profile/
 execution/sessions/
 browser-profile/
 runs/*/screenshots/

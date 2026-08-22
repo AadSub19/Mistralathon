@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """
-Smoke test for browser automation.
+Smoke test for Papa John's ordering adapter.
 
 Tests basic browser capabilities:
 1. Launch visible Chromium
-2. Navigate to a public website
+2. Navigate to Papa John's website
 3. Extract visible page text
-4. Print current URL
-5. Take a screenshot
-6. Close successfully
+4. Verify menu is reachable
+5. Close successfully
 """
 
 import sys
@@ -22,51 +21,59 @@ load_dotenv()
 # Add execution to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from browser import SyncBrowserController
+from papa_johns import SyncPapaJohnsOrderingTool
 
 
-def test_browser():
-    """Run smoke test."""
+def test_papa_johns_adapter():
+    """Run smoke test for Papa John's adapter."""
     print("=" * 60)
-    print("Browser Smoke Test")
+    print("Papa John's Adapter Smoke Test")
     print("=" * 60)
     
     # Use visible browser
-    browser = SyncBrowserController(headless=False)
+    tool = SyncPapaJohnsOrderingTool(headless=False)
     
     try:
-        print("\n1. Starting browser...")
-        browser.start()
-        print("   Browser started successfully")
+        print("\n1. Starting Papa John's tool...")
+        tool.start()
+        print("   Tool started successfully")
         
-        print("\n2. Navigating to https://www.google.com...")
-        success = browser.navigate("https://www.google.com")
-        if not success:
-            print("   FAILED: Could not navigate")
+        print("\n2. Opening https://www.papajohns.com/...")
+        result = tool.open()
+        if result.get("status") != "success":
+            print(f"   FAILED: Could not open - {result}")
             return False
-        print("   Navigated successfully")
+        print(f"   Opened successfully")
         
-        print("\n3. Getting current URL...")
-        url = browser.current_url()
-        print(f"   Current URL: {url}")
-        if not url or "google" not in url.lower():
-            print("   FAILED: URL not as expected")
+        print("\n3. Checking for CAPTCHA...")
+        if tool.is_captcha_blocked():
+            print("   FAILED: CAPTCHA detected")
+            return False
+        print("   No CAPTCHA detected")
+        
+        print("\n4. Inspecting menu...")
+        menu_result = tool.inspect_menu()
+        if menu_result.get("status") != "success":
+            print(f"   FAILED: Could not inspect menu - {menu_result}")
             return False
         
-        print("\n4. Extracting visible page text...")
-        text = browser.visible_page_text()
-        if not text or len(text) < 100:
-            print("   FAILED: Could not extract page text")
-            return False
-        print(f"   Extracted {len(text)} characters of visible text")
-        print(f"   First 200 chars: {text[:200]}...")
+        pizza_options = menu_result.get("pizza_options", [])
+        print(f"   Found {len(pizza_options)} pizza options")
+        if pizza_options:
+            print(f"   Pizza options: {[p['name'] for p in pizza_options]}")
         
-        print("\n5. Taking screenshot...")
-        screenshot_path = browser.screenshot()
-        if not screenshot_path:
-            print("   FAILED: Could not take screenshot")
-            return False
-        print(f"   Screenshot saved to: {screenshot_path}")
+        sizes = menu_result.get("sizes_available", [])
+        print(f"   Sizes available: {sizes}")
+        
+        page_text = menu_result.get("page_text", "")
+        if not page_text or len(page_text) < 100:
+            print("   WARNING: Page text seems short")
+        else:
+            print(f"   Extracted {len(page_text)} characters from page")
+        
+        print("\n5. Getting order state...")
+        state = tool.get_order_state()
+        print(f"   Order state: {state}")
         
         print("\n" + "=" * 60)
         print("SMOKE TEST PASSED")
@@ -80,11 +87,11 @@ def test_browser():
         return False
     
     finally:
-        print("\n6. Stopping browser...")
-        browser.stop()
-        print("   Browser stopped")
+        print("\n6. Stopping tool...")
+        tool.stop()
+        print("   Tool stopped")
 
 
 if __name__ == "__main__":
-    success = test_browser()
+    success = test_papa_johns_adapter()
     sys.exit(0 if success else 1)

@@ -53,3 +53,53 @@
 {"ts": "2026-08-22T21:02:47.797146+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "agent_ready", "detail": "Agent is ready for execution"}
 {"ts": "2026-08-22T21:02:47.797231+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "qa_completed", "detail": "QA phase completed"}
 {"ts": "2026-08-22T21:02:47.797298+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "stage_completed", "detail": "Stage qa completed"}
+{"ts": "2026-08-22T22:54:58.444408+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_started", "detail": "Browser launched"}
+{"ts": "2026-08-22T22:55:01.776635+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "error", "detail": "Error: Mistral invocation failed: 'Chat' object is not callable"}
+{"ts": "2026-08-22T22:55:01.948049+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_stopped", "detail": "Browser closed"}
+{"ts": "2026-08-22T23:00:11.452815+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_started", "detail": "Browser launched"}
+{"ts": "2026-08-22T23:00:15.920840+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu_items"}
+{"ts": "2026-08-22T23:00:17.436272+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu_items"}
+{"ts": "2026-08-22T23:00:18.887701+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu items"}
+{"ts": "2026-08-22T23:00:20.678583+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu_items"}
+{"ts": "2026-08-22T23:00:22.911666+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu items"}
+{"ts": "2026-08-22T23:00:24.489707+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu items list"}
+{"ts": "2026-08-22T23:00:26.047914+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu_items"}
+{"ts": "2026-08-22T23:00:27.400866+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu items"}
+{"ts": "2026-08-22T23:00:28.955862+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu items"}
+{"ts": "2026-08-22T23:00:30.301012+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu items"}
+{"ts": "2026-08-22T23:00:31.836573+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu items"}
+{"ts": "2026-08-22T23:00:33.395345+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu items"}
+{"ts": "2026-08-22T23:00:34.961394+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu items"}
+{"ts": "2026-08-22T23:00:36.590008+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu items"}
+{"ts": "2026-08-22T23:00:39.003734+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "page_inspected", "detail": "Inspected: menu items"}
+{"ts": "2026-08-22T23:00:39.734266+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "error", "detail": "Error: Mistral invocation failed: API error occurred: Status 429. Body: {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}"}
+{"ts": "2026-08-22T23:00:39.942242+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_stopped", "detail": "Browser closed"}
+{"ts": "2026-08-22T23:04:51.433888+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_started", "detail": "Browser launched"}
+{"ts": "2026-08-22T23:09:25.035548+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_started", "detail": "Browser launched"}
+{"ts": "2026-08-22T23:11:50.556341+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "error", "detail": "Error: Mistral invocation failed: API error occurred: Status 429. Body: {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}"}
+{"ts": "2026-08-22T23:11:50.737473+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_stopped", "detail": "Browser closed"}
+{"ts": "2026-08-22T23:16:42.939981+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_started", "detail": "Browser launched"}
+{"ts": "2026-08-22T23:18:50.261273+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "race_finished", "detail": "Status: INTERRUPTED"}
+{"ts": "2026-08-22T23:24:06.314294+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_started", "detail": "Browser launched"}
+{"ts": "2026-08-22T23:24:49.615065+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "race_finished", "detail": "Status: stuck"}
+{"ts": "2026-08-22T23:24:49.803147+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_stopped", "detail": "Browser closed"}
+{"ts": "2026-08-22T23:29:06.863509+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_started", "detail": "Browser launched"}
+{"ts": "2026-08-22T23:32:13.070003+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "race_finished", "detail": "Status: INTERRUPTED"}
+{"ts": "2026-08-22T23:39:38.297685+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_started", "detail": "Papa John's browser launched"}
+{"ts": "2026-08-22T23:39:41.704109+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "navigate", "detail": "Navigated to: https://www.papajohns.com/"}
+{"ts": "2026-08-22T23:39:41.947696+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_stopped", "detail": "Browser closed"}
+{"ts": "2026-08-22T23:42:13.762465+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_started", "detail": "Papa John's browser launched"}
+{"ts": "2026-08-22T23:42:17.344443+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "navigate", "detail": "Navigated to: https://www.papajohns.com/"}
+{"ts": "2026-08-22T23:42:17.611872+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_stopped", "detail": "Browser closed"}
+{"ts": "2026-08-22T23:43:06.846827+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_started", "detail": "Papa John's browser launched"}
+{"ts": "2026-08-22T23:43:10.177463+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "navigate", "detail": "Navigated to: https://www.papajohns.com/"}
+{"ts": "2026-08-22T23:43:13.251394+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "price_checked", "detail": "Price: $100"}
+{"ts": "2026-08-22T23:43:49.001764+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "pizza_found", "detail": "Pizza: cheese"}
+{"ts": "2026-08-22T23:44:48.717219+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "error", "detail": "Error: Mistral invocation failed: API error occurred: Status 429. Body: {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_code\":429}"}
+{"ts": "2026-08-22T23:44:48.718372+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "race_finished", "detail": "Status: rate_limited"}
+{"ts": "2026-08-22T23:44:48.922619+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_stopped", "detail": "Browser closed"}
+{"ts": "2026-08-22T23:56:28.336526+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_started", "detail": "Papa John's browser launched"}
+{"ts": "2026-08-22T23:56:31.876977+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "navigate", "detail": "Navigated to: https://www.papajohns.com/"}
+{"ts": "2026-08-22T23:56:37.207067+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "ready_to_purchase", "detail": "Ready to purchase - waiting for AUTO_PURCHASE"}
+{"ts": "2026-08-22T23:56:37.208117+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "race_finished", "detail": "Status: READY_TO_PURCHASE"}
+{"ts": "2026-08-22T23:56:37.419293+00:00", "team": "oracle", "phase": "execution", "actor": "runner", "action": "browser_stopped", "detail": "Browser closed"}
