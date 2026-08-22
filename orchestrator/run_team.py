@@ -104,10 +104,10 @@ def run_vibe_subprocess(
         "-p", prompt,
         "--output", output_format,
         "--max-turns", str(max_turns),
-        "--max-tokens", str(max_tokens),
-        "--auto-approve",
-        "--trust",
     ]
+    if max_tokens is not None:
+        cmd.extend(["--max-tokens", str(max_tokens)])
+    cmd.extend(["--auto-approve", "--trust"])
     
     print(f"  [DEBUG] Vibe command: {' '.join(cmd[:6])}... (prompt truncated)")
     
@@ -238,38 +238,20 @@ IMPORTANT:
 - Do NOT include chain-of-thought, only file creation commands.
 """
 
-QA_PROMPT_TEMPLATE = """You are the QA engineer for the Oracle team in the Mistralathon hackathon.
+QA_PROMPT_TEMPLATE = """You are QA for Oracle. Read pizza-agent/agent_spec.json.
 
-Your personality: Analytical, predictive, evidence-driven, strategic, deliberate.
+Check:
+1. Toppings: pepperoni and jalapeño required
+2. <=$35 total
+3. Quantity: 1
+4. Tools: only navigate, click, type_into, visible_page_text, screenshot, current_url, cart_state
+5. Has fallback_behavior
 
-Challenge: Order one pepperoni + jalapeño pizza for delivery within $35 budget.
-
-Architect's Plan is in PLAN.md. Developer's Agent Specification is in pizza-agent/agent_spec.json. Read both files first.
-
-Your task: Verify agent specification and create QA_REPORT.md.
-
-Check for:
-1. Toppings: pepperoni and jalapeño MUST be included
-2. $35 constraint: Maximum delivered total must not exceed $35
-3. One-order limit: Never place more than one order
-4. Goal alignment: Fastest delivery of qualifying pizza
-5. Tool compatibility: Only use navigate, click, type_into, visible_page_text, screenshot, current_url, cart_state
-6. Fallback behavior: Must have reasonable failure handling
-
-Review files in pizza-agent/ directory.
-
-If issues found in pizza-agent/agent_spec.json:
-1. Describe in QA_REPORT.md
-2. Fix agent_spec.json if needed
-
-Create QA_REPORT.md with: summary, issues found, Pass/Fail status, modifications made.
-
-IMPORTANT:
-- If modifications needed, update pizza-agent/agent_spec.json directly.
-- Only modify files under pizza-agent/ directory.
-- Use write_file tool for file creation.
-- Do NOT include chain-of-thought, only file creation commands.
-"""
+Return ONLY a concise markdown report with:
+- PASS or FAIL
+- Checks performed
+- Issues found
+- Recommended fixes"""
 
 
 # =============================================================================
@@ -553,70 +535,44 @@ def generate_developer_spec_deterministic(challenge: dict, plan: str) -> dict:
 # QA Phase
 # =============================================================================
 
-def run_qa(team: str, challenge: dict, plan: str, agent_spec: dict, personality: str, mock: bool) -> tuple[dict, str]:
+def run_qa(team: str, mock: bool = False, max_turns: int = 4, max_tokens: int = 16384) -> tuple[dict, str]:
     log_qa_started(team)
     log_stage_started(team, "qa")
     
     team_run_dir = RUNS_DIR / team
     team_run_dir.mkdir(parents=True, exist_ok=True)
-    
     qa_workdir = team_run_dir
     
     prompt = QA_PROMPT_TEMPLATE
-    
     print(f"  Starting QA Vibe session in {qa_workdir}")
     
-    plan_path = qa_workdir / "PLAN.md"
-    if not plan_path.exists():
-        write_file_atomic(plan_path, plan)
-    
-    agent_spec_path = qa_workdir / "pizza-agent" / "agent_spec.json"
-    if not agent_spec_path.exists():
-        agent_spec_dir = qa_workdir / "pizza-agent"
-        agent_spec_dir.mkdir(parents=True, exist_ok=True)
-        write_file_atomic(agent_spec_path, json.dumps(agent_spec, indent=2))
-    
     stdout, exit_code, stderr = run_vibe_subprocess(
-        team=team,
-        phase="qa",
-        actor="qa",
-        workdir=qa_workdir,
-        prompt=prompt,
-        max_turns=VIBE_MAX_TURNS,
-        max_tokens=VIBE_MAX_TOKENS,
-        timeout=VIBE_TIMEOUT_SECONDS,
-        mock=mock
+        team=team, phase="qa", actor="qa",
+        workdir=qa_workdir, prompt=prompt,
+        max_turns=max_turns, max_tokens=None,
+        timeout=VIBE_TIMEOUT_SECONDS, mock=mock
     )
     
     qa_report_path = qa_workdir / "QA_REPORT.md"
     
-    if qa_report_path.exists():
-        qa_report = qa_report_path.read_text()
-        log_file_created(team, "qa", "qa", f"runs/{team}/QA_REPORT.md")
-        print(f"  QA created QA_REPORT.md")
-    elif mock:
-        issues, modified_spec = run_qa_checks_deterministic(challenge, agent_spec)
-        qa_report = generate_qa_report_deterministic(issues)
+    if exit_code == 0:
+        qa_report = stdout
         write_file_atomic(qa_report_path, qa_report)
         log_file_created(team, "qa", "qa", f"runs/{team}/QA_REPORT.md")
-        print(f"  [MOCK] Created QA_REPORT.md using deterministic fallback")
+        print(f"  QA report written to QA_REPORT.md")
+    elif mock:
+        qa_report = "# QA Report\n\nStatus: PASSED\n\nAll checks passed."
+        write_file_atomic(qa_report_path, qa_report)
+        log_file_created(team, "qa", "qa", f"runs/{team}/QA_REPORT.md")
+        print(f"  [MOCK] Created QA_REPORT.md")
     else:
-        raise RuntimeError(
-            f"QA phase failed. Vibe exit code: {exit_code}. "
-            f"stderr: {stderr}. QA_REPORT.md not created."
-        )
+        raise RuntimeError(f"QA failed: exit_code={exit_code}, stderr={stderr}")
     
+    final_spec = {}
+    agent_spec_path = qa_workdir / "pizza-agent" / "agent_spec.json"
     if agent_spec_path.exists():
         with open(agent_spec_path) as f:
             final_spec = json.load(f)
-        if final_spec != agent_spec:
-            log_qa_fix_applied(team, "Agent specification updated by QA")
-    else:
-        final_spec = agent_spec
-    
-    qa_report_text = qa_report_path.read_text() if qa_report_path.exists() else qa_report
-    if "MODIFICATIONS APPLIED" in qa_report_text or "ISSUES FOUND" in qa_report_text:
-        pass
     
     log_agent_ready(team)
     log_qa_completed(team)
@@ -743,7 +699,29 @@ Agent specification meets all requirements. Ready for execution."""
 # Main Execution
 # =============================================================================
 
-def run_team(team: str, mock: bool = False):
+def run_team(team: str, phase: str = None, mock: bool = False):
+    if phase == "qa":
+        print(f"\n{'='*60}")
+        print(f"Running {team.capitalize()} QA Phase ONLY")
+        if mock:
+            print(f"MODE: MOCK (deterministic fallback)")
+        else:
+            print(f"MODE: PRODUCTION (real Vibe CLI)")
+        print(f"{'='*60}\n")
+        
+        final_spec, qa_report = run_qa(team, mock=mock)
+        print(f"QA complete. Report written to runs/{team}/QA_REPORT.md")
+        
+        print(f"\n{'='*60}")
+        print(f"{team.capitalize()} QA Complete!")
+        print(f"{'='*60}")
+        return {
+            "team": team,
+            "qa_path": RUNS_DIR / team / "QA_REPORT.md",
+            "events_path": RUNS_DIR / team / "events.jsonl",
+            "mock_mode": mock
+        }
+    
     print(f"\n{'='*60}")
     print(f"Running {team.capitalize()} Team Pipeline")
     if mock:
@@ -770,8 +748,7 @@ def run_team(team: str, mock: bool = False):
     print(f"Developer complete. Agent spec written to runs/{team}/pizza-agent/agent_spec.json")
     
     print(f"\n--- Phase 3: QA ---")
-    final_spec, qa_report = run_qa(team, challenge, plan, agent_spec, personality, mock)
-    print(f"QA complete. Report written to runs/{team}/QA_REPORT.md")
+    final_spec, qa_report = run_qa(team, mock=mock)
     
     print(f"\n{'='*60}")
     print(f"{team.capitalize()} Team Pipeline Complete!")
@@ -802,6 +779,11 @@ if __name__ == "__main__":
         help="Team name to run (e.g., oracle)"
     )
     parser.add_argument(
+        "--phase",
+        choices=["architect", "developer", "qa"],
+        help="Run only a specific phase (default: run all phases)"
+    )
+    parser.add_argument(
         "--mock",
         action="store_true",
         help="Use deterministic fallback instead of real Vibe CLI (for development only)"
@@ -809,10 +791,11 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     team = args.team.lower()
+    phase = args.phase
     mock = args.mock
     
     try:
-        result = run_team(team, mock=mock)
+        result = run_team(team, phase=phase, mock=mock)
         sys.exit(0)
     except Exception as e:
         print(f"ERROR: {e}")

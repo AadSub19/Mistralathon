@@ -9,3 +9,47 @@
 {"ts": "2026-08-22T20:14:38.098513+00:00", "team": "oracle", "phase": "developer", "actor": "developer", "action": "developer_started", "detail": "Developer phase began"}
 {"ts": "2026-08-22T20:14:38.098566+00:00", "team": "oracle", "phase": "developer", "actor": "developer", "action": "stage_started", "detail": "Stage developer started"}
 {"ts": "2026-08-22T20:14:38.098700+00:00", "team": "oracle", "phase": "developer", "actor": "developer", "action": "vibe_started", "detail": "Vibe CLI process started in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle"}
+{"ts": "2026-08-22T20:31:17.238480+00:00", "team": "oracle", "phase": "architect", "actor": "architect", "action": "architect_started", "detail": "Architect phase began for team"}
+{"ts": "2026-08-22T20:31:17.238948+00:00", "team": "oracle", "phase": "architect", "actor": "architect", "action": "stage_started", "detail": "Stage architect started"}
+{"ts": "2026-08-22T20:31:17.239030+00:00", "team": "oracle", "phase": "architect", "actor": "architect", "action": "vibe_started", "detail": "Vibe CLI process started in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle"}
+{"ts": "2026-08-22T20:31:47.911633+00:00", "team": "oracle", "phase": "architect", "actor": "architect", "action": "vibe_completed", "detail": "Vibe CLI process completed in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle with exit code 1"}
+{"ts": "2026-08-22T20:31:47.913033+00:00", "team": "oracle", "phase": "architect", "actor": "architect", "action": "plan_created", "detail": "Plan created at runs/oracle/PLAN.md"}
+{"ts": "2026-08-22T20:31:47.913150+00:00", "team": "oracle", "phase": "architect", "actor": "architect", "action": "file_created", "detail": "File created: runs/oracle/PLAN.md"}
+{"ts": "2026-08-22T20:31:47.913245+00:00", "team": "oracle", "phase": "architect", "actor": "architect", "action": "architect_completed", "detail": "Architect phase completed"}
+{"ts": "2026-08-22T20:31:47.913318+00:00", "team": "oracle", "phase": "architect", "actor": "architect", "action": "stage_completed", "detail": "Stage architect completed"}
+{"ts": "2026-08-22T20:31:47.913400+00:00", "team": "oracle", "phase": "developer", "actor": "developer", "action": "developer_started", "detail": "Developer phase began"}
+{"ts": "2026-08-22T20:31:47.913465+00:00", "team": "oracle", "phase": "developer", "actor": "developer", "action": "stage_started", "detail": "Stage developer started"}
+{"ts": "2026-08-22T20:31:47.913577+00:00", "team": "oracle", "phase": "developer", "actor": "developer", "action": "vibe_started", "detail": "Vibe CLI process started in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle"}
+{"ts": "2026-08-22T20:32:19.148455+00:00", "team": "oracle", "phase": "developer", "actor": "developer", "action": "vibe_completed", "detail": "Vibe CLI process completed in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle with exit code 1"}
+{"ts": "2026-08-22T20:32:19.149975+00:00", "team": "oracle", "phase": "developer", "actor": "developer", "action": "agent_spec_created", "detail": "Agent specification created at runs/oracle/pizza-agent/agent_spec.json"}
+{"ts": "2026-08-22T20:32:19.150074+00:00", "team": "oracle", "phase": "developer", "actor": "developer", "action": "file_created", "detail": "File created: runs/oracle/pizza-agent/agent_spec.json"}
+{"ts": "2026-08-22T20:32:19.150164+00:00", "team": "oracle", "phase": "developer", "actor": "developer", "action": "developer_completed", "detail": "Developer phase completed"}
+{"ts": "2026-08-22T20:32:19.150239+00:00", "team": "oracle", "phase": "developer", "actor": "developer", "action": "stage_completed", "detail": "Stage developer completed"}
+{"ts": "2026-08-22T20:32:19.150327+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "qa_started", "detail": "QA phase began"}
+{"ts": "2026-08-22T20:32:19.150402+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "stage_started", "detail": "Stage qa started"}
+{"ts": "2026-08-22T20:32:19.150512+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_started", "detail": "Vibe CLI process started in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle"}
+{"ts": "2026-08-22T20:32:33.515971+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_completed", "detail": "Vibe CLI process completed in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle with exit code 1"}
+{"ts": "2026-08-22T20:49:38.784607+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "qa_started", "detail": "QA phase began"}
+{"ts": "2026-08-22T20:49:38.785696+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "stage_started", "detail": "Stage qa started"}
+{"ts": "2026-08-22T20:49:38.786359+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_started", "detail": "Vibe CLI process started in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle"}
+{"ts": "2026-08-22T20:49:45.099803+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_completed", "detail": "Vibe CLI process completed in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle with exit code 1"}
+{"ts": "2026-08-22T20:51:28.345784+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "qa_started", "detail": "QA phase began"}
+{"ts": "2026-08-22T20:51:28.346504+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "stage_started", "detail": "Stage qa started"}
+{"ts": "2026-08-22T20:51:28.346661+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_started", "detail": "Vibe CLI process started in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle"}
+{"ts": "2026-08-22T20:51:38.916068+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_completed", "detail": "Vibe CLI process completed in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle with exit code 1"}
+{"ts": "2026-08-22T20:54:32.364056+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "qa_started", "detail": "QA phase began"}
+{"ts": "2026-08-22T20:54:32.364491+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "stage_started", "detail": "Stage qa started"}
+{"ts": "2026-08-22T20:54:32.364617+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_started", "detail": "Vibe CLI process started in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle"}
+{"ts": "2026-08-22T20:54:46.998728+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_completed", "detail": "Vibe CLI process completed in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle with exit code 1"}
+{"ts": "2026-08-22T20:57:33.684969+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "qa_started", "detail": "QA phase began"}
+{"ts": "2026-08-22T20:57:33.685744+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "stage_started", "detail": "Stage qa started"}
+{"ts": "2026-08-22T20:57:33.685874+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_started", "detail": "Vibe CLI process started in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle"}
+{"ts": "2026-08-22T20:57:49.546639+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_completed", "detail": "Vibe CLI process completed in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle with exit code 0"}
+{"ts": "2026-08-22T21:02:26.701324+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "qa_started", "detail": "QA phase began"}
+{"ts": "2026-08-22T21:02:26.701994+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "stage_started", "detail": "Stage qa started"}
+{"ts": "2026-08-22T21:02:26.702121+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_started", "detail": "Vibe CLI process started in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle"}
+{"ts": "2026-08-22T21:02:47.796032+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "vibe_completed", "detail": "Vibe CLI process completed in /Users/aadarshsubramanian/Documents/Documents - Aadarsh\u2019s MacBook Pro/Mistralathon/runs/oracle with exit code 0"}
+{"ts": "2026-08-22T21:02:47.796899+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "file_created", "detail": "File created: runs/oracle/QA_REPORT.md"}
+{"ts": "2026-08-22T21:02:47.797146+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "agent_ready", "detail": "Agent is ready for execution"}
+{"ts": "2026-08-22T21:02:47.797231+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "qa_completed", "detail": "QA phase completed"}
+{"ts": "2026-08-22T21:02:47.797298+00:00", "team": "oracle", "phase": "qa", "actor": "qa", "action": "stage_completed", "detail": "Stage qa completed"}
