@@ -1,0 +1,8 @@
+# Browser profiles
+.browser_profile/
+
+# Screenshots
+screenshots/
+
+# Playwright browsers
+playwright-browsers/
