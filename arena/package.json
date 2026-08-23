@@ -1,0 +1,35 @@
+{
+  "name": "mistralathon-arena",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n server,client -c yellow,cyan \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "ARENA_PUBLIC_PORT=5173 tsx watch server/index.ts",
+    "dev:client": "vite --host",
+    "build": "tsc --noEmit -p tsconfig.json && vite build",
+    "start": "tsx server/index.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "qr": "node scripts/make-qr.mjs"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "framer-motion": "^11.15.0",
+    "qrcode.react": "^4.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.2",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "qrcode": "^1.5.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}
